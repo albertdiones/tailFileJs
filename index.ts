@@ -14,10 +14,7 @@ export async function getFileTail(filePath: string, linesDesired: number): Promi
         let lackingLines = linesDesired;
         lackingLines > 0 || position > 0;
     ) {
-
-        const onEnd = position < bufferSize;
-
-        const bytesToRead = onEnd ? position : bufferSize;
+        const bytesToRead = Math.min(bufferSize, position);
         position -= bytesToRead;
   
         // Read the file chunk
