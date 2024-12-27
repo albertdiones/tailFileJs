@@ -7,11 +7,11 @@ export async function getFileTail(filePath: string, linesToRead: number): Promis
   
     const buffer = Buffer.alloc(bufferSize);
     let position = fileSize;
-    let partialData = "";
+    let result = "";
   
     try {
       while (
-        (partialData.match(/\n/g) ?? []).length <= linesToRead 
+        (result.match(/\n/g) ?? []).length <= linesToRead 
         && position > 0
     ) {
         const bytesToRead = Math.min(bufferSize, position);
@@ -20,13 +20,13 @@ export async function getFileTail(filePath: string, linesToRead: number): Promis
         // Read the file chunk
         const { bytesRead } = await fileHandle
             .read(buffer, 0, bytesToRead, position);
-        partialData = buffer
-            .toString("utf-8", 0, bytesRead) + partialData;
+        result = buffer
+            .toString("utf-8", 0, bytesRead) + result;
       }
     } finally {
       await fileHandle.close();
     }
   
     // Return the last `linesToRead` lines
-    return partialData.split('\n').slice(-linesToRead).join('\n');
+    return result.split('\n').slice(-linesToRead).join('\n');
   }
