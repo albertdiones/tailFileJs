@@ -6,21 +6,22 @@ export async function getFileTail(filePath: string, linesDesired: number): Promi
     let fileSize = (await fileHandle.stat()).size;
   
     const buffer = Buffer.alloc(bufferSize);
-    let position = fileSize;
+    
     const results: string[] = [];
     
     let lackingLines = linesDesired;
   
     try {
-      while (
-        lackingLines > 0 && position > 0
+      for (
+        let position = fileSize;
+        position > 0;
+        position -= bufferSize
       ) {
         const bytesToRead = Math.min(bufferSize, position);
-        position -= bytesToRead;
   
         // Read the file chunk
         const { bytesRead } = await fileHandle
-            .read(buffer, 0, bytesToRead, position);
+            .read(buffer, 0, bytesToRead, position-bytesToRead);
         
         // new chunk of text read from the bottom
         const chunk = buffer
