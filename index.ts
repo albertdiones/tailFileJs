@@ -12,7 +12,7 @@ export async function getFileTail(filePath: string, linesDesired: number): Promi
     try {
       for (
         let lackingLines = linesDesired;
-        lackingLines > 0;
+        lackingLines > 0 || position > 0;
     ) {
         const bytesToRead = Math.min(bufferSize, position);
         position -= bytesToRead;
