@@ -15,6 +15,7 @@ export async function getFileTail(filePath: string, linesDesired: number): Promi
         currentResultLines < linesDesired 
         && position > 0
     ) {
+        const lackingLines = linesDesired - currentResultLines;
         const bytesToRead = Math.min(bufferSize, position);
         position -= bytesToRead;
   
@@ -26,13 +27,12 @@ export async function getFileTail(filePath: string, linesDesired: number): Promi
         const chunk = buffer
             .toString("utf-8", 0, bytesRead);
         const chunkLines = (chunk.match(/\n/g) ?? []).length;
-        const lack = linesDesired - currentResultLines;
-        if (chunkLines > lack) {
+        if (chunkLines > lackingLines) {
             results
                 .unshift(
-                    chunk.split('\n').slice(-lack).join('\n')
+                    chunk.split('\n').slice(-lackingLines).join('\n')
                 )
-            currentResultLines += lack;
+            currentResultLines += lackingLines;
             continue;
         }
         currentResultLines += chunkLines;
