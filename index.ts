@@ -13,14 +13,15 @@ export async function getFileTail(filePath: string, linesDesired: number): Promi
   
     try {
       for (
-        let position = Math.min(fileSize - bufferSize, 0);
+        let position = fileSize;
         position > 0;
         position -= bufferSize
       ) {
+        const bytesToRead = Math.min(bufferSize, position);
   
         // Read the file chunk
         const { bytesRead } = await fileHandle
-            .read(buffer, 0, bufferSize, position);
+            .read(buffer, 0, bytesToRead, position-bytesToRead);
         
         // new chunk of text read from the bottom
         const chunk = buffer
