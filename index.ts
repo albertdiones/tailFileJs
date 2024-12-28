@@ -4,7 +4,8 @@ export async function getFileTail(
     filePath: string,
     linesDesired: number
 ): Promise<string> {
-    const bufferSize = 512; // Size of the buffer to read chunks
+    // number of characters to be read in one batch
+    const bufferSize = 256; // Size of the buffer to read chunks
     const fileHandle = await open(filePath, "r");
     let fileSize = (await fileHandle.stat()).size;
   
@@ -13,7 +14,7 @@ export async function getFileTail(
     const results: string[] = [];
     
     let lackingLines = linesDesired;
-  
+
     try {
       for (
         let position = fileSize;
@@ -30,7 +31,14 @@ export async function getFileTail(
         const chunk = buffer
             .toString("utf-8", 0, bytesRead);
         const chunkLines = (chunk.match(/\n/g) ?? []).length;
-        if (chunkLines > lackingLines) {
+
+        // if the number of lines for this batch 
+        // makes the total result longer than the requested
+        // lineDesired, remove the excess
+        // ---
+        // this gets rid of the excess lines that will
+        // make the result be more than the lineDesired
+        if (chunkLines >= lackingLines) {
             results
                 .unshift(
                     chunk.split('\n').slice(-lackingLines).join('\n')

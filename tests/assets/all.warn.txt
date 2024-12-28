@@ -1,0 +1,27 @@
+[12/26/2024, 4:11:52 PM] [price_data] [warn] Failed to fetch GMT-USDT
+[12/26/2024, 4:11:52 PM] [price_data] [warn] Failed to fetch MILO-USDT
+[12/26/2024, 4:11:52 PM] [price_data] [warn] Failed to fetch MXC-USDT
+[12/26/2024, 4:11:52 PM] [price_data] [warn] Failed to fetch NULS-USDT
+[12/26/2024, 4:11:52 PM] [price_data] [warn] Failed to fetch OKSOL-USDT
+[12/26/2024, 4:11:52 PM] [price_data] [warn] Failed to fetch PHA-USDT
+[12/26/2024, 4:11:52 PM] [price_data] [warn] Failed to fetch RUNECOIN-USDT
+[12/26/2024, 4:11:52 PM] [price_data] [warn] Failed to fetch SWEAT-USDT
+[12/26/2024, 4:11:52 PM] [price_data] [warn] Failed to fetch T-USDT
+[12/26/2024, 4:11:52 PM] [price_data] [warn] Failed to fetch X-USDT
+[12/26/2024, 4:11:52 PM] [price_data] [warn] Failed to fetch XR-USDT
+[12/26/2024, 4:11:52 PM] [price_data] [warn] Failed to fetch EURC-USDT
+[12/26/2024, 4:11:53 PM] [root_index] [warn] ordered No intents with active orders found, returning to previous mode
+[12/26/2024, 4:11:54 PM] [candle_updates] [warn] Fetched candles result length 300 is shorter than the given limit 1000
+[12/26/2024, 4:11:54 PM] [candle_updates] [warn] Fetched candles result length 300 is shorter than the given limit 1000
+[12/26/2024, 4:11:54 PM] [candle_updates] [warn] Fetched candles result length 300 is shorter than the given limit 1000
+[12/26/2024, 4:11:54 PM] [candle_updates] [warn] Fetched candles result length 300 is shorter than the given limit 1000
+[12/26/2024, 4:11:55 PM] [candle_updates] [warn] Fetched candles result length 300 is shorter than the given limit 1000
+[12/26/2024, 4:11:55 PM] [candle_updates] [warn] Fetched candles result length 300 is shorter than the given limit 1000
+[12/26/2024, 4:11:55 PM] [candle_updates] [warn] Fetched candles result length 300 is shorter than the given limit 1000
+[12/26/2024, 4:11:55 PM] [candle_updates] [warn] Fetched candles result length 300 is shorter than the given limit 1000
+[12/26/2024, 4:11:55 PM] [candle_updates] [warn] Fetched candles result length 300 is shorter than the given limit 1000
+[12/26/2024, 4:11:55 PM] [candle_updates] [warn] Fetched candles result length 300 is shorter than the given limit 1000
+[12/26/2024, 4:11:55 PM] [candle_updates] [warn] Fetched candles result length 300 is shorter than the given limit 1000
+[12/26/2024, 4:11:56 PM] [candle_updates] [warn] Fetched candles result length 300 is shorter than the given limit 1000
+[12/26/2024, 4:11:56 PM] [candle_updates] [warn] Fetched candles result length 300 is shorter than the given limit 1000
+[12/26/2024, 4:11:56 PM] [candle_updates] [warn] Fetched candles result length 300 is shorter than the given limit 1000

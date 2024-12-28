@@ -19,3 +19,14 @@ test(
         expect(tail.replace(/\r/g,"")).toBe("a\nb\nc\nd\ne");
     }
 );
+
+
+
+test(
+    'test 6 lines from big file',
+    async ()  => {
+        const tail = await getFileTail('tests/assets/all.warn.txt',6);
+        
+        expect(tail.match(/\n/g)?.length).toBe(5);
+    }
+);
