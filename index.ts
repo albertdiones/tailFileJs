@@ -12,8 +12,6 @@ export async function getFileTail(
     const buffer = Buffer.alloc(bufferSize);
     
     const results: string[] = [];
-    
-    let lackingLines = linesDesired;
 
     // just here to make sure that if error occurs,
     // it will still close the file
@@ -27,33 +25,25 @@ export async function getFileTail(
   
         // Read the file chunk
         const { bytesRead } = await fileHandle
-            .read(buffer, 0, bytesToRead, remainingBytes-bytesToRead);
+            .read(
+                buffer,
+                0,
+                bytesToRead,
+                remainingBytes-bytesToRead
+            );
         
         // new chunk of text read from the bottom
         const chunk = buffer
             .toString("utf-8", 0, bytesRead);
-        const chunkLines = (chunk.match(/\n/g) ?? []).length;
+        results.unshift(...chunk.split("\n"));
 
-        // if the number of lines for this batch 
-        // makes the total result longer than the requested
-        // lineDesired, remove the excess
-        // ---
-        // this gets rid of the excess lines that will
-        // make the result be more than the lineDesired
-        if (chunkLines >= lackingLines) {
-            results
-                .unshift(
-                    chunk.split('\n').slice(-lackingLines).join('\n')
-                )
+        if (results.length >= linesDesired) {
             break;
         }
-        lackingLines -= chunkLines;
-        results.unshift(chunk);
       }
     } finally {
       await fileHandle.close();
     }
-  
-    // Return the last `linesToRead` lines
-    return results.join("");
+
+    return results.slice(-linesDesired).join("");
   }
