@@ -11,12 +11,11 @@ export async function getFileTail(
   
     const buffer = Buffer.alloc(bufferSize);
     
-    let results: string = "";
-    
-    let lackingLines = linesDesired;
+    let results: string[] = [];
 
     // just here to make sure that if error occurs,
     // it will still close the file
+    let prevLine = "";
     try {
       for (
         let remainingBytes = fileSize;
@@ -24,25 +23,29 @@ export async function getFileTail(
         remainingBytes -= bufferSize
       ) {
         const bytesToRead = Math.min(bufferSize, remainingBytes);
+        const position = remainingBytes-bytesToRead;
   
         // Read the file chunk
         const { bytesRead } = await fileHandle
-            .read(buffer, 0, bytesToRead, remainingBytes-bytesToRead);
+            .read(buffer, 0, bytesToRead, position);
         
         // new chunk of text read from the bottom
         const chunk = buffer
             .toString("utf-8", 0, bytesRead);
-        const chunkLines = (chunk.match(/\n/g) ?? []).length;
+        const chunkLines = chunk.match(/.+/g) ?? [];
+        
 
-        // if the number of lines for this batch 
-        // makes the total result longer than the requested
-        // lineDesired, remove the excess
-        // ---
-        // this gets rid of the excess lines that will
-        // make the result be more than the lineDesired
-        lackingLines -= chunkLines;
-        results = chunk + results;
-        if (lackingLines <= 0 ) {
+        if (position <= 0) {
+           results.unshift(...chunkLines);
+        }
+        else {
+           const lastLine = chunkLines.pop() + prevLine;
+           prevLine = chunkLines.shift() ?? "";
+           results.unshift(...chunkLines, lastLine);
+        }
+    
+
+        if (results.length > linesDesired) {
             break;
         }
       }
@@ -52,7 +55,6 @@ export async function getFileTail(
   
     // Return the last `linesToRead` lines
     return results
-        .split("\n")
         .slice(-linesDesired)
         .join("\n");
   }

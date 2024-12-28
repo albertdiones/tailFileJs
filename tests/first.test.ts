@@ -55,6 +55,8 @@ test(
             'tests/assets/all.warn.txt',
             9
         );
+
+        expect(tail.match(/\n/g)?.length).toBe(8);
         
         expect(tail.slice(0,24)).toBe('[12/26/2024, 4:11:55 PM]');
     }

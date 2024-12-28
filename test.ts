@@ -36,7 +36,16 @@ async function getFileTailGpt(filePath: string, linesToRead: number): Promise<st
 console.log(await getFileTailGpt('test-logs/smol.txt',10), { label: "GPT"});
 
 
-console.log(await profile(() => getFileTailGpt('test-logs/all.warn.txt',10), { label: "GPT"}));
 
 
-console.log(await profile(() => getFileTail('test-logs/all2.warn.txt',10), {label: "Albert"}));
+await profile(() => getFileTail('test-logs/all2.warn.txt',50), {label: "Albert"});
+
+
+await profile(() => getFileTailGpt('test-logs/all.warn.txt',50), { label: "GPT"});
+
+
+
+await profile(() => getFileTail('test-logs/all.warn.txt',50), {label: "Albert 2"});
+
+
+await profile(() => getFileTailGpt('test-logs/all2.warn.txt',50), { label: "GPT 2"});
