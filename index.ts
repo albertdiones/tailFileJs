@@ -24,11 +24,10 @@ export async function getFileTail(
         remainingBytes -= bufferSize
       ) {
         const bytesToRead = Math.min(bufferSize, remainingBytes);
-        const position = remainingBytes-bytesToRead;
   
         // Read the file chunk
         const { bytesRead } = await fileHandle
-            .read(buffer, 0, bytesToRead, position);
+            .read(buffer, 0, bytesToRead, remainingBytes-bytesToRead);
         
         // new chunk of text read from the bottom
         const chunk = buffer
