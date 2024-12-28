@@ -1,6 +1,9 @@
 import { open } from "fs/promises";
 
-export async function getFileTail(filePath: string, linesDesired: number): Promise<string> {
+export async function getFileTail(
+    filePath: string,
+    linesDesired: number
+): Promise<string> {
     const bufferSize = 512; // Size of the buffer to read chunks
     const fileHandle = await open(filePath, "r");
     let fileSize = (await fileHandle.stat()).size;
