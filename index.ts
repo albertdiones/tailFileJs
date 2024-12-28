@@ -5,7 +5,7 @@ export async function getFileTail(
     linesDesired: number
 ): Promise<string> {
     // number of characters to be read in one batch
-    const bufferSize = 256; // Size of the buffer to read chunks
+    const bufferSize = 1024; // Size of the buffer to read chunks
     const fileHandle = await open(filePath, "r");
     let fileSize = (await fileHandle.stat()).size;
   
