@@ -33,21 +33,19 @@ export async function getFileTail(
         const chunk = buffer
             .toString("utf-8", 0, bytesRead);
         const chunkLines = chunk.match(/.+/g) ?? [];
+
+        const lackingLines = linesDesired - results.length;
         
-
-        if (position <= 0) {
-           results.unshift(...chunkLines);
-        }
-        else {
-           const lastLine = chunkLines.pop() + prevLine;
-           prevLine = chunkLines.shift() ?? "";
-           results.unshift(...chunkLines, lastLine);
-        }
-    
-
-        if (results.length > linesDesired) {
+        if (chunkLines.length > lackingLines) {
+            results.unshift(
+                chunkLines.slice(-lackingLines)
+            );
             break;
         }
+
+        const lastLine = chunkLines.pop() + prevLine;
+        prevLine = chunkLines.shift() ?? "";
+        results.unshift(...chunkLines, lastLine);
       }
     } finally {
       await fileHandle.close();

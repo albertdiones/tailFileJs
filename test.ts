@@ -45,7 +45,7 @@ await profile(() => getFileTailGpt('test-logs/all.warn.txt',50), { label: "GPT"}
 
 
 
-await profile(() => getFileTail('test-logs/all.warn.txt',50), {label: "Albert 2"});
+await profile(() => getFileTail('test-logs/all3.warn.txt',50), {label: "Albert 2"});
 
 
-await profile(() => getFileTailGpt('test-logs/all2.warn.txt',50), { label: "GPT 2"});
+await profile(() => getFileTailGpt('test-logs/all4.warn.txt',50), { label: "GPT 2"});
