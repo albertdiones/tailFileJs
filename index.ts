@@ -11,7 +11,7 @@ export async function getFileTail(
   
     const buffer = Buffer.alloc(bufferSize);
     
-    const results: string[] = [];
+    let results: string = "";
     
     let lackingLines = linesDesired;
 
@@ -40,20 +40,19 @@ export async function getFileTail(
         // ---
         // this gets rid of the excess lines that will
         // make the result be more than the lineDesired
-        if (chunkLines >= lackingLines) {
-            results
-                .unshift(
-                    chunk.split('\n').slice(-lackingLines).join('\n')
-                )
+        lackingLines -= chunkLines;
+        results = chunk + results;
+        if (lackingLines <= 0 ) {
             break;
         }
-        lackingLines -= chunkLines;
-        results.unshift(chunk);
       }
     } finally {
       await fileHandle.close();
     }
   
     // Return the last `linesToRead` lines
-    return results.join("");
+    return results
+        .split("\n")
+        .slice(-linesDesired)
+        .join("\n");
   }
