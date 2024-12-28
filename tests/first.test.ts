@@ -45,3 +45,17 @@ test(
         expect(tail.match(/\n/g)?.length).toBe(26);
     }
 );
+
+
+
+test(
+    'test the buffer size',
+    async ()  => {
+        const tail = await getFileTail(
+            'tests/assets/all.warn.txt',
+            9
+        );
+        
+        expect(tail.slice(0,24)).toBe('[12/26/2024, 4:11:55 PM]');
+    }
+);
