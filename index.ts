@@ -15,17 +15,20 @@ export async function getFileTail(
     
     let lackingLines = linesDesired;
 
+    // just here to make sure that if error occurs,
+    // it will still close the file
     try {
       for (
-        let position = fileSize;
-        position > 0;
-        position -= bufferSize
+        let remainingBytes = fileSize;
+        remainingBytes > 0;
+        remainingBytes -= bufferSize
       ) {
-        const bytesToRead = Math.min(bufferSize, position);
+        const bytesToRead = Math.min(bufferSize, remainingBytes);
+        const position = remainingBytes-bytesToRead;
   
         // Read the file chunk
         const { bytesRead } = await fileHandle
-            .read(buffer, 0, bytesToRead, position-bytesToRead);
+            .read(buffer, 0, bytesToRead, position);
         
         // new chunk of text read from the bottom
         const chunk = buffer

@@ -30,3 +30,18 @@ test(
         expect(tail.match(/\n/g)?.length).toBe(5);
     }
 );
+
+
+
+
+test(
+    'test 30 lines from a 27 line file',
+    async ()  => {
+        const tail = await getFileTail(
+            'tests/assets/all.warn.txt',
+            30
+        );
+        
+        expect(tail.match(/\n/g)?.length).toBe(26);
+    }
+);
