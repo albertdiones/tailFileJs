@@ -38,7 +38,7 @@ export async function getFileTail(
         
         if (chunkLines.length > lackingLines) {
             results.unshift(
-                chunkLines.slice(-lackingLines)
+                ...chunkLines.slice(-lackingLines)
             );
             break;
         }
